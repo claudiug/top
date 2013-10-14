@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+{{ poll.question }}
+{{ poll.pub_date }}
+
+<div class="demo" style="background-color: beige">
+    <h1>{{ poll.question }}</h1>
+    <ul>
+        {% for choice in poll.choice_set.all %}
+            <li>{{ choice.choice_text }}</li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="f" style="background-color: honeydew">
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <form action="{% url "vote" poll.id %}" method="post">
+        {% csrf_token %}
+        {% for choice in poll.choice_set.all %}
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label></br>
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+
+        {% endfor %}
+    </br>
+        <input type="submit" value="Vote">
+    </form>
+</div>
+</body>
+</html>

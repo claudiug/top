@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>index</title>
+</head>
+<body>
+
+{% if latest_poll %}
+    <ul>
+    {% for poll in latest_poll %}
+        <li>
+{#        <a href="/top30/{{ poll.id }}/">{{ poll.question }}</a>#}
+        <a href="{% url "detail" poll.id %}">{{ poll.question }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>No polls here!</p>
+{% endif %}
+</body>
+</html>
